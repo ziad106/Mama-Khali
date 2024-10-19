@@ -49,7 +49,7 @@ public class Destination extends javax.swing.JFrame {
 
         source.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "IIT", "CSE", "SRH", "MH" }));
 
-        vehicle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Cycle", "Rickshaw" }));
+        vehicle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Van", "Rickshaw" }));
 
         jLabel2.setText("Vehicle");
 
