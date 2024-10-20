@@ -1,17 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.mamakhali;
 
-/**
- *
- * @author ASUS
- */
 public class Destination extends javax.swing.JFrame {
 
     /**
@@ -47,13 +35,13 @@ public class Destination extends javax.swing.JFrame {
 
         jLabel1.setText("Source");
 
-        source.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "IIT", "CSE", "SRH", "MH" }));
+        source.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Dairy", "Chourongi", "IIT", "CSE", "SRH", "MH", "STAH", "KNIH", "Shahid Minar", "FBS", "FNB", "FA", "Social Science", "BSMRH", "SSBH", "SRJH", "RH", "IMH", "PH", "KZH", "SKH", "FH", "TBH", "BFMH", "JIH" }));
 
         vehicle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Van", "Rickshaw" }));
 
         jLabel2.setText("Vehicle");
 
-        destination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "IIT", "CSE" }));
+        destination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Dairy", "Chourongi", "IIT", "CSE", "SRH", "MH", "STAH", "KNIH", "Shahid Minar", "FBS", "FNB", "FA", "Social Science", "BSMRH", "SSBH", "SRJH", "RH", "IMH", "PH", "KZH", "SKH", "FH", "TBH", "BFMH", "JIH" }));
 
         jLabel3.setText("Destination");
 
@@ -132,8 +120,6 @@ public class Destination extends javax.swing.JFrame {
                                 .addComponent(jButton2)
                                 .addContainerGap())
         );
-
-        source.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "IIT", "CSE", "SRJ", "MH" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
