@@ -2,7 +2,7 @@ package com.mycompany.mamakhali;
 
 import javax.swing.*;
 import java.awt.*;
-
+//hello
 public class Welcome extends javax.swing.JFrame {
 
     public Welcome() {
