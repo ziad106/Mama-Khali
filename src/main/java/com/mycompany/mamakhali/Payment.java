@@ -9,20 +9,17 @@ import javax.swing.JOptionPane;
 public class Payment extends javax.swing.JFrame {
     private int fare;
 
-    // Constructor that accepts fare as a parameter
     public Payment(int fare) {
         initComponents();
         this.fare = fare;
-        displayFare();  // Display the fare when the Payment screen opens
+        displayFare();
+        setLocationRelativeTo(null);
     }
 
-    // Method to display the fare in the Payment screen
     private void displayFare() {
-        // Assuming you have a JLabel or similar to display the fare
         fareLabel.setText("Your fare is: " + fare + " Taka");
     }
 
-    // Initialize components
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -96,15 +93,14 @@ public class Payment extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // Assume fare is deducted after payment
         int fareAmount = fare;
         String username = Session.username;
         String password = Session.password;
 
-        // Check if username and password are not empty
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please insert username and password");
             return;
@@ -112,7 +108,6 @@ public class Payment extends javax.swing.JFrame {
 
         Connect connect = new Connect();
         try (Connection connection = connect.getConnection()) {
-            // Query to fetch the current balance from the database
             String selectQuery = "SELECT balance FROM regi WHERE name = ? AND password = ?";
             try (PreparedStatement ps = connection.prepareStatement(selectQuery)) {
                 ps.setString(1, username);
@@ -120,11 +115,8 @@ public class Payment extends javax.swing.JFrame {
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
                     int currentBalance = rs.getInt("balance");
-
-                    // Deduct fare from the balance
                     int newBalance = currentBalance - fareAmount;
 
-                    // Update the balance in the database
                     String updateQuery = "UPDATE regi SET balance = ? WHERE name = ? AND password = ?";
                     try (PreparedStatement updatePs = connection.prepareStatement(updateQuery)) {
                         updatePs.setInt(1, newBalance);
@@ -133,7 +125,6 @@ public class Payment extends javax.swing.JFrame {
                         int rowsUpdated = updatePs.executeUpdate();
 
                         if (rowsUpdated > 0) {
-                            // Show success message with updated balance
                             JOptionPane.showMessageDialog(this, "Payment Successful! Your updated balance is: " + newBalance);
                         } else {
                             JOptionPane.showMessageDialog(this, "No records updated. Username or password not found.");
@@ -149,13 +140,11 @@ public class Payment extends javax.swing.JFrame {
     }
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // Go back to the Destination screen
         Destination dest = new Destination();
         dest.setVisible(true);
         setVisible(false);
     }
 
-    // Variables declaration
     private javax.swing.JLabel fareLabel;
     private javax.swing.JButton payButton;
     private javax.swing.JButton backButton;
