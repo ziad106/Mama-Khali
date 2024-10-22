@@ -11,7 +11,7 @@ public class Signup extends javax.swing.JFrame {
 
     public Signup() {
         initComponents();
-        setLocationRelativeTo(null); // This centers the window on the screen
+        setLocationRelativeTo(null); // This centers the window 
         setTitle("Sign Up"); // Optional: Set a title for the window
         setResizable(false); // Optional: Prevents resizing of the window
     }
