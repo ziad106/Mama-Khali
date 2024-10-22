@@ -28,7 +28,6 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
 
         jLabel1.setText("Username");
-
         jLabel2.setText("Password");
 
         jButton1.setText("Login");
@@ -38,7 +37,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        // Layout setup (you can customize it as per your requirements)
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -86,6 +84,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,12 +128,10 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 
-    // Variables declaration
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField uname;
     private javax.swing.JPasswordField upass;
-    // End of variables declaration
 }
