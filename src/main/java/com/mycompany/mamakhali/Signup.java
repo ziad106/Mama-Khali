@@ -11,6 +11,9 @@ public class Signup extends javax.swing.JFrame {
 
     public Signup() {
         initComponents();
+        setLocationRelativeTo(null); // This centers the window on the screen
+        setTitle("Sign Up"); // Optional: Set a title for the window
+        setResizable(false); // Optional: Prevents resizing of the window
     }
 
     @SuppressWarnings("unchecked")
@@ -31,11 +34,8 @@ public class Signup extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
 
         jLabel1.setText("Username");
-
         jLabel2.setText("Password");
-
         jLabel3.setText("Email");
-
         jLabel4.setText("Phone");
 
         save.setText("Sign Up");
@@ -45,7 +45,7 @@ public class Signup extends javax.swing.JFrame {
             }
         });
 
-        // Layout setup (you can customize it as per your requirements)
+        // Layout setup
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,7 +142,6 @@ public class Signup extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> new Signup().setVisible(true));
     }
 
-    // Variables declaration
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField user;
     private javax.swing.JPasswordField pass;
@@ -153,5 +152,4 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    // End of variables declaration
 }
