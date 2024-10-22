@@ -43,7 +43,7 @@ public class Welcome extends javax.swing.JFrame {
         login.setText("Login");
         login.setBackground(Color.LIGHT_GRAY);  // Set background color
         login.setForeground(Color.BLACK);  // Ensure text color is visible (Black text)
-        login.setFont(new Font("Arial", Font.PLAIN, 16));  // Set custom font size
+        login.setFont(new Font("MV Boli", Font.PLAIN, 16));  // Set custom font size
         buttonsPanel.add(login);
 
         // Customize signup button
@@ -66,6 +66,7 @@ public class Welcome extends javax.swing.JFrame {
         popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+       
 
         // Set up the frame layout
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -80,6 +81,8 @@ public class Welcome extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
+       
 
         // Assign action listeners to the buttons here
         login.addActionListener(evt -> loginActionPerformed(evt));
