@@ -4,130 +4,161 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Payment extends javax.swing.JFrame {
+    private int fare;
 
-    public Payment() {
+    // Constructor that accepts fare as a parameter
+    public Payment(int fare) {
         initComponents();
+        this.fare = fare;
+        displayFare();  // Display the fare when the Payment screen opens
     }
 
-    @SuppressWarnings("unchecked")
+    // Method to display the fare in the Payment screen
+    private void displayFare() {
+        // Assuming you have a JLabel or similar to display the fare
+        fareLabel.setText("Your fare is: " + fare + " Taka");
+    }
+
+    // Initialize components
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
-        paySubmit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        fareLabel = new javax.swing.JLabel();
+        payButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
 
         jLabel1.setText("Payment");
 
-        paySubmit.setText("Submit Payment");
-        paySubmit.addActionListener(new java.awt.event.ActionListener() {
+        fareLabel.setText("Fare: ");
+
+        payButton.setText("Pay");
+        payButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paySubmitActionPerformed(evt);
+                payButtonActionPerformed(evt);
             }
         });
 
-        // Layout setup (you can customize it as per your requirements)
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            jPanel1Layout.createSequentialGroup()
+                .addContainerGap(80, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(paySubmit))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(fareLabel)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(backButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(payButton)))
+                        .addGap(64, 64, 64))
+                )
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            jPanel1Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
-                .addComponent(paySubmit)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(fareLabel)
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(payButton)
+                    .addComponent(backButton))
+                .addGap(60, 60, 60)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }
 
-    private void paySubmitActionPerformed(java.awt.event.ActionEvent evt) {
+    private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // Assume fare is deducted after payment
+        int fareAmount = fare;
         String username = Session.username;
         String password = Session.password;
 
+        // Check if username and password are not empty
         if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please Insert user name and password");
+            JOptionPane.showMessageDialog(this, "Please insert username and password");
             return;
         }
 
         Connect connect = new Connect();
-        try (Connection connection = connect.getConnection();
-             Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM regi")) {
+        try (Connection connection = connect.getConnection()) {
+            // Query to fetch the current balance from the database
+            String selectQuery = "SELECT balance FROM regi WHERE name = ? AND password = ?";
+            try (PreparedStatement ps = connection.prepareStatement(selectQuery)) {
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    int currentBalance = rs.getInt("balance");
 
-            boolean ok = false;
+                    // Deduct fare from the balance
+                    int newBalance = currentBalance - fareAmount;
 
-            while (rs.next()) {
-                String getId = rs.getString("name");
-                String getPass = rs.getString("password");
-                if (username.equals(getId) && password.equals(getPass)) {
-                    int tk = rs.getInt("balance") - 10;
-                    int rid = rs.getInt("numofrid") + 1;
+                    // Update the balance in the database
+                    String updateQuery = "UPDATE regi SET balance = ? WHERE name = ? AND password = ?";
+                    try (PreparedStatement updatePs = connection.prepareStatement(updateQuery)) {
+                        updatePs.setInt(1, newBalance);
+                        updatePs.setString(2, username);
+                        updatePs.setString(3, password);
+                        int rowsUpdated = updatePs.executeUpdate();
 
-                    String updateQuery = "UPDATE regi SET balance=?, numofrid=? WHERE name=? AND password=?";
-                    try (PreparedStatement ps = connection.prepareStatement(updateQuery)) {
-                        ps.setInt(1, tk);
-                        ps.setInt(2, rid);
-                        ps.setString(3, username);
-                        ps.setString(4, password);
-
-                        int rowsUpdated = ps.executeUpdate();
                         if (rowsUpdated > 0) {
-                            JOptionPane.showMessageDialog(null, "Ride has been done\nYour account balance is : " + tk);
-                            Welcome wc = new Welcome();
-                            wc.setVisible(true);
+                            // Show success message with updated balance
+                            JOptionPane.showMessageDialog(this, "Payment Successful! Your updated balance is: " + newBalance);
                         } else {
-                            JOptionPane.showMessageDialog(null, "No records updated. Username or password not found.");
+                            JOptionPane.showMessageDialog(this, "No records updated. Username or password not found.");
                         }
                     }
-                    ok = true;
-                    break;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Username or Password does not match");
                 }
             }
-            if (!ok) {
-                JOptionPane.showMessageDialog(null, "Username or Password does not match");
-            }
         } catch (SQLException ex) {
-            Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error processing payment: " + ex.getMessage());
         }
     }
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new Payment().setVisible(true));
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // Go back to the Destination screen
+        Destination dest = new Destination();
+        dest.setVisible(true);
+        setVisible(false);
     }
 
     // Variables declaration
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton paySubmit;
+    private javax.swing.JLabel fareLabel;
+    private javax.swing.JButton payButton;
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
-    // End of variables declaration
+    private javax.swing.JPanel jPanel1;
 }
