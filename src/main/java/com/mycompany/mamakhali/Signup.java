@@ -1,155 +1,162 @@
 package com.mycompany.mamakhali;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;  // <-- Import for EmptyBorder
 
 public class Signup extends javax.swing.JFrame {
+    
+    private JPanel imagePanel;  // <-- Declare imagePanel
 
     public Signup() {
         initComponents();
-        setLocationRelativeTo(null); // This centers the window 
-        setTitle("Sign Up"); // Optional: Set a title for the window
-        setResizable(false); // Optional: Prevents resizing of the window
+        setLocationRelativeTo(null);
+        setTitle("Sign Up");
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        user = new javax.swing.JTextField();
-        pass = new javax.swing.JPasswordField();
-        email = new javax.swing.JTextField();
-        phone = new javax.swing.JTextField();
-        save = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
-
-        jLabel1.setText("Username");
-        jLabel2.setText("Password");
-        jLabel3.setText("Email");
-        jLabel4.setText("Phone");
-
-        save.setText("Sign Up");
-        save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
+        // Create main panel
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(1, 2));  // Two columns layout
+        
+        // Create image panel
+        imagePanel = new JPanel() {  // <-- Initialize imagePanel here
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Load and draw the image
+                ImageIcon imageIcon = new ImageIcon("/Users/mohaiminul/Downloads/Signup.png");
+                if (imageIcon.getImageLoadStatus() == MediaTracker.COMPLETE) {
+                    Image image = imageIcon.getImage();
+                    g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+                }
             }
-        });
-
-        // Layout setup
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(user)
-                    .addComponent(pass)
-                    .addComponent(email)
-                    .addComponent(phone, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(save)
-                .addGap(45, 45, 45))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(save)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
+        };
+        
+        // Create form panel
+        formPanel = new JPanel();
+        formPanel.setLayout(null);  // Absolute positioning
+        formPanel.setBackground(new Color(40, 40, 40));  // Dark background
+        
+        // Initialize components with modern styling
+        user = new JTextField();
+        pass = new JPasswordField();
+        email = new JTextField();
+        phone = new JTextField();
+        save = new JButton("Sign Up");
+        
+        // Style labels
+        Font labelFont = new Font("Segoe UI", Font.PLAIN, 14);
+        jLabel1 = new JLabel("Username");
+        jLabel2 = new JLabel("Password");
+        jLabel3 = new JLabel("Email");
+        jLabel4 = new JLabel("Phone");
+        
+        // Apply styles to labels
+        for (JLabel label : new JLabel[]{jLabel1, jLabel2, jLabel3, jLabel4}) {
+            label.setFont(labelFont);
+            label.setForeground(Color.WHITE);
+        }
+        
+        // Style text fields
+        for (JTextField field : new JTextField[]{user, pass, email, phone}) {
+            field.setBackground(Color.WHITE);
+            field.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(200, 200, 200)),
+                new EmptyBorder(8, 12, 8, 12)  // <-- Use EmptyBorder here
+            ));
+            field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        }
+        
+        // Style signup button
+        save.setBackground(new Color(255, 69, 0));  // Orange-red color
+        save.setForeground(Color.WHITE);
+        save.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        save.setBorder(new EmptyBorder(10, 30, 10, 30));  // <-- Use EmptyBorder here
+        save.setFocusPainted(false);
+        save.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        save.addActionListener(evt -> saveActionPerformed(evt));
+        
+        // Position components
+        int startY = 150;
+        int labelX = 50;
+        int fieldX = 150;
+        int spacing = 60;
+        
+        // Set bounds for all components
+        jLabel1.setBounds(labelX, startY, 80, 25);
+        user.setBounds(fieldX, startY, 200, 35);
+        
+        jLabel2.setBounds(labelX, startY + spacing, 80, 25);
+        pass.setBounds(fieldX, startY + spacing, 200, 35);
+        
+        jLabel3.setBounds(labelX, startY + spacing * 2, 80, 25);
+        email.setBounds(fieldX, startY + spacing * 2, 200, 35);
+        
+        jLabel4.setBounds(labelX, startY + spacing * 3, 80, 25);
+        phone.setBounds(fieldX, startY + spacing * 3, 200, 35);
+        
+        save.setBounds(150, startY + spacing * 4, 200, 45);
+        
+        // Add components to form panel
+        formPanel.add(jLabel1);
+        formPanel.add(user);
+        formPanel.add(jLabel2);
+        formPanel.add(pass);
+        formPanel.add(jLabel3);
+        formPanel.add(email);
+        formPanel.add(jLabel4);
+        formPanel.add(phone);
+        formPanel.add(save);
+        
+        // Add panels to main panel
+        mainPanel.add(imagePanel);
+        mainPanel.add(formPanel);
+        
+        // Set frame properties
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().add(mainPanel);
+        setSize(800, 500);
     }
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {
         Connect connect = new Connect();
-        try (Connection connection = connect.getConnection()) {
-            String sname = user.getText();
-            String spass = new String(pass.getPassword());
-            String semail = email.getText();
-            String sphone = phone.getText();
-            int balance = 100;
-
-            if (sname.isEmpty() || spass.isEmpty() || semail.isEmpty() || sphone.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "All fields are required");
-                return;
-            }
-
-            String q = "INSERT INTO regi(name, password, email, phone, balance, numofrid) VALUES (?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement ps = connection.prepareStatement(q)) {
-                ps.setString(1, sname);
-                ps.setString(2, spass);
-                ps.setString(3, semail);
-                ps.setString(4, sphone);
-                ps.setInt(5, balance);
-                ps.setInt(6, 0);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registration Successful");
-            }
+        try (Connection conn = connect.getConnection()) {
+            String sql = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user.getText());
+            pstmt.setString(2, new String(pass.getPassword()));
+            pstmt.setString(3, email.getText());
+            pstmt.setString(4, phone.getText());
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Signup successful!");
         } catch (SQLException ex) {
             Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error during signup: " + ex.getMessage(), "Signup Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new Signup().setVisible(true));
+        EventQueue.invokeLater(() -> new Signup().setVisible(true));
     }
 
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField user;
-    private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField phone;
-    private javax.swing.JButton save;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    // Variables declaration
+    private JPanel mainPanel;
+    private JPanel formPanel;
+    private JTextField user;
+    private JPasswordField pass;
+    private JTextField email;
+    private JTextField phone;
+    private JButton save;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLabel jLabel3;
+    private JLabel jLabel4;
 }
