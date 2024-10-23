@@ -32,7 +32,7 @@ public class Signup extends javax.swing.JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Load and draw the image
-                ImageIcon imageIcon = new ImageIcon("/Users/ziadtahzeeb/Desktop/Screenshot 2024-10-23 at 10.12.21 PM.png");
+                ImageIcon imageIcon = new ImageIcon("/Users/ziadtahzeeb/Downloads/BQMamaKhali.png");
                 if (imageIcon.getImageLoadStatus() == MediaTracker.COMPLETE) {
                     Image image = imageIcon.getImage();
                     g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
