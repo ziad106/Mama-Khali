@@ -45,7 +45,7 @@ public class Destination extends javax.swing.JFrame {
         welcomeLabel.setText("Hi " + username + ", where are we heading?");
         
         // To set background image, call:
-        mainPanel.setBackgroundImage("/Users/ziadtahzeeb/Downloads/Distance.png");
+        mainPanel.setBackgroundImage("/Users/mohaiminul/Downloads/Distance.png");
     }
 
     @SuppressWarnings("unchecked")
@@ -221,17 +221,174 @@ public class Destination extends javax.swing.JFrame {
         int fare = 0;
 
         // Dairy fares
-        if ("Dairy".equals(source) && "Chourongi".equals(destination)) fare = 15;
-        else if ("Dairy".equals(source) && "CSE".equals(destination)) fare = 10;
-        else if ("Dairy".equals(source) && "IIT".equals(destination)) fare = 10;
-        else if ("Dairy".equals(source) && "SRH".equals(destination)) fare = 20;
-        else if ("Dairy".equals(source) && "SRJH".equals(destination)) fare = 20;
-        else if ("Dairy".equals(source) && "MH".equals(destination)) fare = 10;
-        else if ("Dairy".equals(source) && "STAH".equals(destination)) fare = 20;
-        else if ("Dairy".equals(source) && "KNIH".equals(destination)) fare = 15;
-        else if ("Dairy".equals(source) && "Shahid Minar".equals(destination)) fare = 10;
-        else if ("Dairy".equals(source) && "FBS".equals(destination)) fare = 25;
-        else if ("Dairy".equals(source) && "FNB".equals(destination)) fare = 20;
+        if ("Dairy".equals(source) && "Chourongi".equals(destination) || "Chourongi".equals(source) && "Dairy".equals(destination)) 
+    fare = 15;
+else if ("Dairy".equals(source) && "CSE".equals(destination) || "CSE".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "IIT".equals(destination) || "IIT".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "SRJ".equals(destination) || "SRJ".equals(source) && "Dairy".equals(destination)) 
+    fare = 20;
+else if ("Dairy".equals(source) && "MH".equals(destination) || "MH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "STAH".equals(destination) || "STAH".equals(source) && "Dairy".equals(destination)) 
+    fare = 20;
+else if ("Dairy".equals(source) && "KNIH".equals(destination) || "KNIH".equals(source) && "Dairy".equals(destination)) 
+    fare = 15;
+else if ("Dairy".equals(source) && "Shaheed Minar".equals(destination) || "Shaheed Minar".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "FBS".equals(destination) || "FBS".equals(source) && "Dairy".equals(destination)) 
+    fare = 20;
+else if ("Dairy".equals(source) && "FNB".equals(destination) || "FNB".equals(source) && "Dairy".equals(destination)) 
+    fare = 20;
+else if ("Dairy".equals(source) && "FA".equals(destination) || "FA".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "Social Science".equals(destination) || "Social Science".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "BSMRH".equals(destination) || "BSMRH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "SSB".equals(destination) || "SSB".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "SRJH".equals(destination) || "SRJH".equals(source) && "Dairy".equals(destination)) 
+    fare = 20;
+else if ("Dairy".equals(source) && "RH".equals(destination) || "RH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "IMH".equals(destination) || "IMH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "PH".equals(destination) || "PH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "FH".equals(destination) || "FH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("Dairy".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "Dairy".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "SRJH".equals(destination) || "SRJH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "RH".equals(destination) || "RH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "IMH".equals(destination) || "IMH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "PH".equals(destination) || "PH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "FH".equals(destination) || "FH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SSB".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "SSB".equals(destination)) 
+    fare = 10;
+else if ("SRJH".equals(source) && "RH".equals(destination) || "RH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "IMH".equals(destination) || "IMH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "PH".equals(destination) || "PH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+else if ("SRJH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "SRJH".equals(destination)) 
+    fare = 15;
+
+else if ("RH".equals(source) && "IMH".equals(destination) || "IMH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "PH".equals(destination) || "PH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+else if ("RH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "RH".equals(destination)) 
+    fare = 10;
+
+else if ("IMH".equals(source) && "PH".equals(destination) || "PH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+else if ("IMH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "IMH".equals(destination)) 
+    fare = 10;
+
+else if ("PH".equals(source) && "KZH".equals(destination) || "KZH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+else if ("PH".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+else if ("PH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+else if ("PH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+else if ("PH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+else if ("PH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "PH".equals(destination)) 
+    fare = 10;
+
+else if ("KZH".equals(source) && "SKH".equals(destination) || "SKH".equals(source) && "KZH".equals(destination)) 
+    fare = 10;
+else if ("KZH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "KZH".equals(destination)) 
+    fare = 10;
+else if ("KZH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "KZH".equals(destination)) 
+    fare = 10;
+else if ("KZH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "KZH".equals(destination)) 
+    fare = 10;
+else if ("KZH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "KZH".equals(destination)) 
+    fare = 10;
+
+else if ("SKH".equals(source) && "FH".equals(destination) || "FH".equals(source) && "SKH".equals(destination)) 
+    fare = 10;
+else if ("SKH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "SKH".equals(destination)) 
+    fare = 10;
+else if ("SKH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "SKH".equals(destination)) 
+    fare = 10;
+else if ("SKH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "SKH".equals(destination)) 
+    fare = 10;
+
+else if ("FH".equals(source) && "TBH".equals(destination) || "TBH".equals(source) && "FH".equals(destination)) 
+    fare = 10;
+else if ("FH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "FH".equals(destination)) 
+    fare = 10;
+else if ("FH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "FH".equals(destination)) 
+    fare = 10;
+
+else if ("TBH".equals(source) && "BFMH".equals(destination) || "BFMH".equals(source) && "TBH".equals(destination)) 
+    fare = 10;
+else if ("TBH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "TBH".equals(destination)) 
+    fare = 10;
+
+else if ("BFMH".equals(source) && "JIH".equals(destination) || "JIH".equals(source) && "BFMH".equals(destination)) 
+    fare = 10;
+
+
 
         return fare;
     }
