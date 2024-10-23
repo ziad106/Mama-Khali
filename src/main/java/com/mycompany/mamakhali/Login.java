@@ -1,29 +1,33 @@
 package com.mycompany.mamakhali;
 
+import java.awt.*;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField uname;
-    private javax.swing.JPasswordField upass;
+    
+    private Image backgroundImage;
 
     public Login() {
+        // Load the background image
+        try {
+            backgroundImage = ImageIO.read(new File("/Users/mohaiminul/Downloads/Ju_aest.png")); // Set your image path here
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initComponents();
-        setTitle("Mama Khali - Login");
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new BackgroundPanel(); // Custom JPanel with a background image
         uname = new javax.swing.JTextField();
         upass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
@@ -31,85 +35,57 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
-        // Panel setup
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        // Modify the panel background color to make it transparent
+        jPanel1.setLayout(null);
 
-        // Labels setup
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14));
+        // Username Label
         jLabel1.setText("Username");
-        
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14));
+        jLabel1.setForeground(Color.BLACK); // Text color to contrast with the background
+        jLabel1.setBounds(50, 50, 100, 30);
+        jPanel1.add(jLabel1);
+
+        // Username TextField
+        uname.setBounds(150, 50, 150, 30);
+        jPanel1.add(uname);
+
+        // Password Label
         jLabel2.setText("Password");
+        jLabel2.setForeground(Color.BLACK); // Text color to contrast with the background
+        jLabel2.setBounds(50, 100, 100, 30);
+        jPanel1.add(jLabel2);
 
-        // Text fields setup
-        uname.setFont(new java.awt.Font("Arial", 0, 14));
-        upass.setFont(new java.awt.Font("Arial", 0, 14));
+        // Password TextField
+        upass.setBounds(150, 100, 150, 30);
+        jPanel1.add(upass);
 
-        // Button setup
-        jButton1.setFont(new java.awt.Font("Arial", 1, 14));
+        // Login Button
         jButton1.setText("Login");
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setBounds(150, 150, 150, 30);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1);
 
-        // Layout setup
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(uname)
-                    .addComponent(upass, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)  // Centers the button more
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
-        );
-        
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(uname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(upass, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        pack();
+        getContentPane().add(jPanel1);
+        setSize(400, 300);
         setLocationRelativeTo(null);
     }
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+    // BackgroundPanel class to set the background image
+    private class BackgroundPanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String name = uname.getText();
         String pass = new String(upass.getPassword());
 
@@ -129,12 +105,11 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
                 String getId = rs.getString("name");
                 String getPass = rs.getString("password");
                 if (name.equals(getId) && pass.equals(getPass)) {
-                    // Use the Session class methods
-                    Session.setUsername(name);
-                    Session.setPassword(pass);
-                    UserPage userPage = new UserPage();
-                    userPage.setVisible(true);
-                    this.dispose(); // Use dispose() instead of setVisible(false)
+                    Session.username = name;
+                    Session.password = pass;
+                    UserPage st = new UserPage();
+                    st.setVisible(true);
+                    setVisible(false);
                     loginSuccess = true;
                     break;
                 }
@@ -144,22 +119,18 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage());
         }
     }
 
     public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
+
+    // Variables declaration
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField uname;
+    private javax.swing.JPasswordField upass;
 }
