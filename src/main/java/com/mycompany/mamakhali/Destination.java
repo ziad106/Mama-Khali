@@ -45,7 +45,7 @@ public class Destination extends javax.swing.JFrame {
         welcomeLabel.setText("Hi " + username + ", where are we heading?");
         
         // To set background image, call:
-        mainPanel.setBackgroundImage("/Users/mohaiminul/Downloads/Distance.png");
+        mainPanel.setBackgroundImage("/Users/ziadtahzeeb/Downloads/Distance.png");
     }
 
     @SuppressWarnings("unchecked")
@@ -224,6 +224,7 @@ public class Destination extends javax.swing.JFrame {
         if ("Dairy".equals(source) && "Chourongi".equals(destination)) fare = 15;
         else if ("Dairy".equals(source) && "CSE".equals(destination)) fare = 10;
         else if ("Dairy".equals(source) && "IIT".equals(destination)) fare = 10;
+        else if ("Dairy".equals(source) && "SRH".equals(destination)) fare = 20;
         else if ("Dairy".equals(source) && "SRJH".equals(destination)) fare = 20;
         else if ("Dairy".equals(source) && "MH".equals(destination)) fare = 10;
         else if ("Dairy".equals(source) && "STAH".equals(destination)) fare = 20;

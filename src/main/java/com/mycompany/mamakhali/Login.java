@@ -18,7 +18,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         // Load the background image
         try {
-            backgroundImage = ImageIO.read(new File("/Users/mohaiminul/Downloads/Ju_aest.png")); // Set your image path here
+            backgroundImage = ImageIO.read(new File("/Users/ziadtahzeeb/Downloads/Ju_aest.png")); // Set your image path here
         } catch (Exception e) {
             e.printStackTrace();
         }
