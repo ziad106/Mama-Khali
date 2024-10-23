@@ -37,7 +37,7 @@ class AccountInfoDialog extends JDialog {
         addField(infoPanel, "Name:", name, labelFont, valueFont);
         addField(infoPanel, "Email:", email, labelFont, valueFont);
         addField(infoPanel, "Phone:", phone, labelFont, valueFont);
-        addField(infoPanel, "Balance:", String.format("$%.2f", balance), labelFont, valueFont);
+        addField(infoPanel, "Balance:", String.format("TK%.2f", balance), labelFont, valueFont);
         addField(infoPanel, "Total Rides:", String.valueOf(numOfRides), labelFont, valueFont);
         addField(infoPanel, "Member Since:", created_at.split(" ")[0], labelFont, valueFont);
 
@@ -154,7 +154,7 @@ public class UserPage extends javax.swing.JFrame {
         mainPanel.add(rechargeBalanceBtn);
 
         // Background Label with Image
-        backgroundLabel.setIcon(new javax.swing.ImageIcon("/Users/ziadtahzeeb/Downloads/Welcome back, username.png")); 
+        backgroundLabel.setIcon(new javax.swing.ImageIcon("/Users/mohaiminul/Downloads/Welcome back, username.png")); 
         backgroundLabel.setBounds(0, 0, 500, 480);
         mainPanel.add(backgroundLabel);
 
@@ -249,7 +249,7 @@ private void rechargeBalanceBtnActionPerformed(java.awt.event.ActionEvent evt) {
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Current Balance Display
-        JLabel currentBalanceLabel = new JLabel(String.format("Current Balance: $%.2f", currentBalance));
+        JLabel currentBalanceLabel = new JLabel(String.format("Current Balance: TK.%.2f", currentBalance));
         currentBalanceLabel.setFont(new Font("MV Boli", Font.BOLD, 16));
         currentBalanceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(currentBalanceLabel);
@@ -260,7 +260,7 @@ private void rechargeBalanceBtnActionPerformed(java.awt.event.ActionEvent evt) {
         formPanel.setBackground(Color.WHITE);
 
         // Components
-        JLabel amountLabel = new JLabel("Recharge Amount ($):");
+        JLabel amountLabel = new JLabel("Recharge Amount (TK):");
         JTextField amountField = new JTextField();
         JLabel transactionLabel = new JLabel("Transaction ID:");
         JTextField transactionField = new JTextField();
@@ -346,7 +346,7 @@ private void rechargeBalanceBtnActionPerformed(java.awt.event.ActionEvent evt) {
                     if (newBalanceRs.next()) {
                         double newBalance = newBalanceRs.getDouble("balance");
                         JOptionPane.showMessageDialog(rechargeDialog,
-                            String.format("Balance successfully recharged!\nNew Balance: $%.2f", newBalance),
+                            String.format("Balance successfully recharged!\nNew Balance: TK.%.2f", newBalance),
                             "Success",
                             JOptionPane.INFORMATION_MESSAGE);
                     }
