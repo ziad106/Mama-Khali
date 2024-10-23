@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class Payment extends javax.swing.JFrame {
     private int fare;
@@ -15,6 +16,7 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JLabel fareLabel;
     private javax.swing.JButton payButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton rechargeButton; // New recharge button
 
     public Payment(int fare) {
         this.fare = fare;
@@ -22,7 +24,7 @@ public class Payment extends javax.swing.JFrame {
         displayFare();
         setLocationRelativeTo(null);
         
-        JLabel background = new JLabel(new ImageIcon("/Users/mohaiminul/Downloads/Payment.png"));
+        JLabel background = new JLabel(new ImageIcon("/Users/ziadtahzeeb/Downloads/Payment.png"));
         background.setBounds(0, 0, 400, 300);
         mainPanel.add(background);
     }
@@ -37,11 +39,12 @@ public class Payment extends javax.swing.JFrame {
         fareLabel = new javax.swing.JLabel();
         payButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        rechargeButton = new javax.swing.JButton(); // Initialize recharge button
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 300));
         setResizable(false);
-        mainPanel.setLayout(null); // Using null layout for absolute positioning
+        mainPanel.setLayout(null);
 
         // Configure labels
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24));
@@ -69,6 +72,14 @@ public class Payment extends javax.swing.JFrame {
         payButton.setFocusPainted(true);
         mainPanel.add(payButton);
 
+        // Configure recharge button (initially invisible)
+        rechargeButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        rechargeButton.setText("Recharge Balance");
+        rechargeButton.setBounds(130, 220, 140, 35);
+        rechargeButton.addActionListener(evt -> rechargeButtonActionPerformed(evt));
+        rechargeButton.setVisible(false); // Initially hidden
+        mainPanel.add(rechargeButton);
+
         getContentPane().add(mainPanel);
         pack();
     }
@@ -93,12 +104,16 @@ public class Payment extends javax.swing.JFrame {
                 
                 if (rs.next()) {
                     int currentBalance = rs.getInt("balance");
-                    if (currentBalance < fareAmount) {
-                        JOptionPane.showMessageDialog(this, "Insufficient balance. Your current balance is: " + currentBalance);
+                    int newBalance = currentBalance - fareAmount;
+                    
+                    if (newBalance < 0) {
+                        JOptionPane.showMessageDialog(this, 
+                            "Insufficient balance. Your current balance is: " + currentBalance + " Taka\n" +
+                            "Please recharge your balance to continue.");
+                        rechargeButton.setVisible(true); // Show recharge button
                         return;
                     }
                     
-                    int newBalance = currentBalance - fareAmount;
                     String updateQuery = "UPDATE regi SET balance = ? WHERE name = ? AND password = ?";
                     
                     try (PreparedStatement updatePs = connection.prepareStatement(updateQuery)) {
@@ -126,6 +141,12 @@ public class Payment extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Destination dest = new Destination();
         dest.setVisible(true);
+        setVisible(false);
+    }
+
+    private void rechargeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        UserPage userPage = new UserPage();
+        userPage.setVisible(true);
         setVisible(false);
     }
 }
