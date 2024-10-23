@@ -5,15 +5,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Payment extends javax.swing.JFrame {
     private int fare;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JLabel fareLabel;
+    private javax.swing.JButton payButton;
+    private javax.swing.JButton backButton;
 
     public Payment(int fare) {
-        initComponents();
         this.fare = fare;
+        initComponents();
         displayFare();
         setLocationRelativeTo(null);
+        
+        JLabel background = new JLabel(new ImageIcon("/Users/mohaiminul/Downloads/Payment.png"));
+        background.setBounds(0, 0, 400, 300);
+        mainPanel.add(background);
     }
 
     private void displayFare() {
@@ -21,79 +32,45 @@ public class Payment extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        mainPanel = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
         fareLabel = new javax.swing.JLabel();
         payButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 300));
+        setResizable(false);
+        mainPanel.setLayout(null); // Using null layout for absolute positioning
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
+        // Configure labels
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24));
+        titleLabel.setText("Payment");
+        titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLabel.setBounds(50, 40, 300, 30);
+        mainPanel.add(titleLabel);
 
-        jLabel1.setText("Payment");
+        fareLabel.setFont(new java.awt.Font("Segoe UI", 1, 18));
+        fareLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        fareLabel.setBounds(50, 100, 300, 30);
+        mainPanel.add(fareLabel);
 
-        fareLabel.setText("Fare: ");
-
-        payButton.setText("Pay");
-        payButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                payButtonActionPerformed(evt);
-            }
-        });
-
+        // Configure buttons
+        backButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
         backButton.setText("Back");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
+        backButton.setBounds(85, 170, 100, 35);
+        backButton.addActionListener(evt -> backButtonActionPerformed(evt));
+        mainPanel.add(backButton);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(130, 130, 130))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(fareLabel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(backButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(payButton)))
-                        .addGap(64, 64, 64))
-                )
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(fareLabel)
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(payButton)
-                    .addComponent(backButton))
-                .addGap(60, 60, 60)
-        );
+        payButton.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        payButton.setText("Pay");
+        payButton.setBounds(215, 170, 100, 35);
+        payButton.addActionListener(evt -> payButtonActionPerformed(evt));
+        payButton.setFocusPainted(true);
+        mainPanel.add(payButton);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
+        getContentPane().add(mainPanel);
         pack();
-        setLocationRelativeTo(null);
     }
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,11 +90,17 @@ public class Payment extends javax.swing.JFrame {
                 ps.setString(1, username);
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
+                
                 if (rs.next()) {
                     int currentBalance = rs.getInt("balance");
+                    if (currentBalance < fareAmount) {
+                        JOptionPane.showMessageDialog(this, "Insufficient balance. Your current balance is: " + currentBalance);
+                        return;
+                    }
+                    
                     int newBalance = currentBalance - fareAmount;
-
                     String updateQuery = "UPDATE regi SET balance = ? WHERE name = ? AND password = ?";
+                    
                     try (PreparedStatement updatePs = connection.prepareStatement(updateQuery)) {
                         updatePs.setInt(1, newBalance);
                         updatePs.setString(2, username);
@@ -125,13 +108,14 @@ public class Payment extends javax.swing.JFrame {
                         int rowsUpdated = updatePs.executeUpdate();
 
                         if (rowsUpdated > 0) {
-                            JOptionPane.showMessageDialog(this, "Payment Successful! Your updated balance is: " + newBalance);
+                            JOptionPane.showMessageDialog(this, "Payment Successful!\nYour updated balance is: " + newBalance + " Taka");
+                            setVisible(false);
                         } else {
-                            JOptionPane.showMessageDialog(this, "No records updated. Username or password not found.");
+                            JOptionPane.showMessageDialog(this, "Payment failed. Please try again.");
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Username or Password does not match");
+                    JOptionPane.showMessageDialog(this, "Authentication failed. Please check your credentials.");
                 }
             }
         } catch (SQLException ex) {
@@ -144,10 +128,4 @@ public class Payment extends javax.swing.JFrame {
         dest.setVisible(true);
         setVisible(false);
     }
-
-    private javax.swing.JLabel fareLabel;
-    private javax.swing.JButton payButton;
-    private javax.swing.JButton backButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
 }
