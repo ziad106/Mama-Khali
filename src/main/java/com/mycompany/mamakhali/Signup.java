@@ -126,22 +126,53 @@ public class Signup extends javax.swing.JFrame {
         setSize(800, 500);
     }
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {
-        Connect connect = new Connect();
-        try (Connection conn = connect.getConnection()) {
-            String sql = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, user.getText());
-            pstmt.setString(2, new String(pass.getPassword()));
-            pstmt.setString(3, email.getText());
-            pstmt.setString(4, phone.getText());
-            pstmt.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Signup successful!");
-        } catch (SQLException ex) {
-            Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Error during signup: " + ex.getMessage(), "Signup Error", JOptionPane.ERROR_MESSAGE);
+private void saveActionPerformed(java.awt.event.ActionEvent evt) {
+    Connect connect = new Connect();
+    try (Connection connection = connect.getConnection()) {
+        String sname = user.getText();
+        String spass = new String(pass.getPassword());
+        String semail = email.getText();
+        String sphone = phone.getText();
+
+        // Validate that all fields are filled
+        if (sname.isEmpty() || spass.isEmpty() || semail.isEmpty() || sphone.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields are required");
+            return;
         }
+
+        // Default values
+        int balance = 100;  // Default balance
+        int numofrid = 0;   // Default number of rides
+
+        // SQL query for regi table
+        String sql = "INSERT INTO regi (name, password, email, phone, balance, numofrid) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, sname);
+            pstmt.setString(2, spass);
+            pstmt.setString(3, semail);
+            pstmt.setString(4, sphone);
+            pstmt.setInt(5, balance);
+            pstmt.setInt(6, numofrid);
+            
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Registration Successful!");
+            
+            // Optionally clear the fields after successful registration
+            user.setText("");
+            pass.setText("");
+            email.setText("");
+            phone.setText("");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Signup.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, 
+            "Error during registration: " + ex.getMessage(), 
+            "Registration Error", 
+            JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     public static void main(String args[]) {
         EventQueue.invokeLater(() -> new Signup().setVisible(true));
